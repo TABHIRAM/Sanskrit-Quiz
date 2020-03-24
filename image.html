@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Slogan</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+ <link href="https://fonts.googleapis.com/css?family=Macondo" rel="stylesheet">
+    <link rel="import" href="home.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {box-sizing: border-box;}
+
+.img-comp-container {
+  position: relative;
+  height: 200px; /*should be the same height as the images*/
+}
+
+.img-comp-img {
+  position: absolute;
+  width: auto;
+  height: auto;
+  overflow:hidden;
+}
+
+.img-comp-img img {
+  display:block;
+  vertical-align:middle;
+
+}
+
+.img-comp-slider {
+  position: absolute;
+  z-index:9;
+  cursor: ew-resize;
+  /*set the appearance of the slider:*/
+  width: 40px;
+  height: 40px;
+  background-color: #2196F3;
+  opacity: 0.7;
+
+  border-radius: 70%;
+}
+
+.scs{
+  padding-left: 35px;
+  align-content: center;
+  padding-right: 35px;
+  padding-bottom:auto;
+}
+</style>
+<script>
+function initComparisons() {
+  var x, i;
+  /*find all elements with an "overlay" class:*/
+  x = document.getElementsByClassName("img-comp-overlay");
+  for (i = 0; i < x.length; i++) {
+    /*once for each "overlay" element:
+    pass the "overlay" element as a parameter when executing the compareImages function:*/
+    compareImages(x[i]);
+  }
+  function compareImages(img) {
+    var slider, img, clicked = 0, w, h;
+    /*get the width and height of the img element*/
+    w = img.offsetWidth;
+    h = img.offsetHeight;
+    /*set the width of the img element to 50%:*/
+    img.style.width = (w / 2) + "px";
+    /*create slider:*/
+    slider = document.createElement("DIV");
+    slider.setAttribute("class", "img-comp-slider");
+    /*insert slider*/
+    img.parentElement.insertBefore(slider, img);
+    /*position the slider in the middle:*/
+    slider.style.top = (h / 2) - (slider.offsetHeight / 2) + "px";
+    slider.style.left = (w / 2) - (slider.offsetWidth / 2) + "px";
+    /*execute a function when the mouse button is pressed:*/
+    slider.addEventListener("mousedown", slideReady);
+    /*and another function when the mouse button is released:*/
+    window.addEventListener("mouseup", slideFinish);
+    /*or touched (for touch screens:*/
+    slider.addEventListener("touchstart", slideReady);
+    /*and released (for touch screens:*/
+    window.addEventListener("touchstop", slideFinish);
+    function slideReady(e) {
+      /*prevent any other actions that may occur when moving over the image:*/
+      e.preventDefault();
+      /*the slider is now clicked and ready to move:*/
+      clicked = 1;
+      /*execute a function when the slider is moved:*/
+      window.addEventListener("mousemove", slideMove);
+      window.addEventListener("touchmove", slideMove);
+    }
+    function slideFinish() {
+      /*the slider is no longer clicked:*/
+      clicked = 0;
+    }
+    function slideMove(e) {
+      var pos;
+      /*if the slider is no longer clicked, exit this function:*/
+      if (clicked == 0) return false;
+      /*get the cursor's x position:*/
+      pos = getCursorPos(e)
+      /*prevent the slider from being positioned outside the image:*/
+      if (pos < 0) pos = 0;
+      if (pos > w) pos = w;
+      /*execute a function that will resize the overlay image according to the cursor:*/
+      slide(pos);
+    }
+    function getCursorPos(e) {
+      var a, x = 0;
+      e = e || window.event;
+      /*get the x positions of the image:*/
+      a = img.getBoundingClientRect();
+      /*calculate the cursor's x coordinate, relative to the image:*/
+      x = e.pageX - a.left;
+      /*consider any page scrolling:*/
+      x = x - window.pageXOffset;
+      return x;
+    }
+    function slide(x) {
+      /*resize the image:*/
+      img.style.width = x + "px";
+      /*position the slider:*/
+      slider.style.left = img.offsetWidth - (slider.offsetWidth / 2) + "px";
+    }
+  }
+}
+</script>
+</head>
+<body>
+   
+ <div class="scs">
+<font face="verdana"  color="red" size="5.2px" >Sri Chandrasekharendra Saraswathi Viswa Mahavidyalaya (SCSVMV) Deemed to be university.</font> 
+<div>
+</div>
+<font face="verdana"  color="blue" size="4.5px" >Compare Two Slogans <i> </i></font> 
+
+ <div>
+ <p>Here there are two slogans in each frame,  Slide the <b>Blue Circle</b> to compare two Slogans:</p> 
+ 
+ 
+<div class="pid">
+<div class="img-comp-container">
+  <div class="img-comp-img">
+    <img src="img\1.jpg" width="300" height="200">
+  </div>
+  <div class="img-comp-img img-comp-overlay">
+    <img src="img\2.jpg" width="300" height="200">
+  </div>
+</div>
+<p><span style="color: #FF0000;"><strong>1. Two wrongs don’t make right</strong></span><br>
+When someone did something bad to you, trying to do something bad to them will only make things worse.</p>
+<div class="img-comp-container">
+  <div class="img-comp-img">
+    <img src="img\3.jpg" width="300" height="200">
+  </div>
+  <div class="img-comp-img img-comp-overlay">
+    <img src="img\4.jpg" width="300" height="200">
+  </div>
+</div>
+<p><span style="color: #FF0000;"><strong>2. Look before you leap</strong></span><br>
+Make decisions carefully. Think about it first.</p>
+<p>Many people are physically hurt every year because they jump into water without checking what is beneath the surface.</p>
+<p>This proverb helps us to understand that no matter what we are doing we should always check for dangers before we do anything that could cause us harm.</p>
+<div class="img-comp-container">
+  <div class="img-comp-img">
+    <img src="img\5.jpg" width="300" height="200">
+  </div>
+  <div class="img-comp-img img-comp-overlay">
+    <img src="img\6.jpg" width="300" height="200">
+
+  </div>
+
+</div>
+<p><span style="color: #FF0000;"><strong>3.&nbsp;Measure twice, cut one</strong></span><br>
+It’s hard to change a decision, once you’ve made it. </p>
+ 
+<div class="img-comp-container">
+  <div class="img-comp-img">
+    <img src="img\7.jpg" width="300" height="200">
+  </div>
+  <div class="img-comp-img img-comp-overlay">
+    <img src="img\8.jpg" width="300" height="200">
+  </div>
+</div>
+<p><span style="color: #FF0000;"><strong>4.&nbsp;Beauty is in the eye of the beholder</strong></span><br>
+Everyone has their own ideas of what is beautiful.</p> </span>
+<p>A beautiful person is not always beautiful on the outside. They may not be physically attractive, but this proverb helps us understand that we find real beauty inside a person.</p>
+<div class="img-comp-container">
+  <div class="img-comp-img">
+    <img src="img\9.jpg" width="300" height="200">
+  </div>
+  <div class="img-comp-img img-comp-overlay">
+    <img src="img\10.jpg" width="300" height="200">
+
+  </div>
+  
+</div>
+</div>
+</div>
+<p><span style="color: #FF0000;"><strong>5.&nbsp;Better late than never</strong></span><br>
+It’s better if you do something later, than not do it at all.</p>
+<p><span style="color: #FF0000;"><strong>6.&nbsp;First things first</strong></span><br>
+Be patient. Do the things in their correct order.</p>
+ <p> <br><span style="color: #FF0000;"><strong>7.&nbsp;No pain, no gain</strong></span><br>
+If you don’t work hard, you’ll never achieve your goal.</p>
+ <p><span style="color: #FF0000;"><strong>8.&nbsp;Seeing is believing</strong></span><br>
+People don’t often believe something, unless they see it.</p>
+<p><span style="color: #FF0000;"><strong>9.&nbsp;Time is money</strong></span><br>
+The longer it takes to do something, the more costly it will be</p>
+<p><span style="color: #FF0000;"><strong>10.&nbsp;What’s done is done</strong></span><br>
+You cannot change what has already happened.</p> 
+<p><span style="color: #FF0000;"><strong>11.&nbsp;Too many cooks spoil the broth</strong></span><br>
+If there are many people doing the same job, the result will come out to be bad.</p>
+<p><br>
+<div id="footer"><p id="text">  Designed & Developed by  <strong> Abhiram Thimmaraju(11179A245)  </strong> <p></div>
+<script>
+/*Execute a function that will execute an image compare function for each element with the img-comp-overlay class:*/
+initComparisons();
+</script>
+
+</body>
+</html>
